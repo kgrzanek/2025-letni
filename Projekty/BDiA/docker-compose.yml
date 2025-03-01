@@ -1,0 +1,14 @@
+services:
+  main-postgres:
+    image: postgres:17
+    container_name: 2025-letni-bdia-main-postgres
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: bdia
+    ports:
+      - "5501:5432"
+    volumes:
+      - $HOME/.docker-volumes/2025-letni-bdia/main-postgres:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
