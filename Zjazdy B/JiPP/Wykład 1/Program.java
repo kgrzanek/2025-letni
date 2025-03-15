@@ -9,16 +9,15 @@
 
 class Program {
 
-  static double f(x) {
+  static double f(double x) {
     return 2*x + 3;
   }
 
-  static double g(y) {
+  static double g(double y) {
     return 2*y + 3;
   }
 
   public static void main(String... args) {
     System.out.println("Witaj Świecie");
   }
-
 }

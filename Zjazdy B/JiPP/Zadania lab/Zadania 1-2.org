@@ -1,0 +1,6 @@
+* Zadanie 1
+   Zainstalować środowisko programistyczne dla wybranego języka programowania. Powinien to być język
+   posiadający elementy obiektowego stylu programowania.
+
+* Zadanie 2
+   https://projecteuler.net/problem=14
