@@ -1,5 +1,7 @@
 // © 2025 Konrad Grzanek <kongra@gmail.com>
-package edu.san.greeting.boundary.queries;
+package edu.san.greeting.boundary;
+
+import edu.san.greeting.control.GreetingQuery;
 
 public class GreetingQueryImpl implements GreetingQuery {
 

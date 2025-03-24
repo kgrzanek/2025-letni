@@ -9,7 +9,6 @@ import java.lang.System.Logger.Level;
 
 import org.junit.jupiter.api.Test;
 
-import edu.san.greeting.boundary.queries.GreetingQueryImpl;
 import edu.san.greeting.control.GreetingController;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
@@ -23,7 +22,7 @@ class GreetingResourceTest {
   void testHello() {
     final var greetingControler = new GreetingController();
     final var greetingResource = new GreetingResource(greetingControler);
-    try (var result = greetingResource.hello(new GreetingQueryImpl("YOU"))) {
+    try (var result = greetingResource.handlePost(new GreetingQueryImpl("YOU"))) {
       assertThat(result.getStatus()).isEqualTo(200);
     }
   }
