@@ -14,7 +14,9 @@ class GreetingResourceTest {
           .when().get("/hello")
           .then()
              .statusCode(200)
-             .body(is("[1]"));
+             .body(is("[1, kgrzanek@san.edu.pl]"));
+
+        // "[1]"
     }
 
 }

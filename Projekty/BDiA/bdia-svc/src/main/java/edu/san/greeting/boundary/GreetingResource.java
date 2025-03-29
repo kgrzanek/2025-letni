@@ -7,10 +7,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.sql.DataSource;
 
-import edu.san.sql.JDBC;
+import edu.san.jdbc.JDBC;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -19,6 +21,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 @Path("/hello")
+@ApplicationScoped
 class GreetingResource {
 
   static final Logger LOG = System
@@ -29,7 +32,7 @@ class GreetingResource {
   private final DataSource dataSource;
 
   GreetingResource(DataSource dataSource) {
-    this.dataSource = dataSource;
+    this.dataSource = Objects.requireNonNull(dataSource);
   }
 
   @GET
@@ -38,26 +41,37 @@ class GreetingResource {
     return runSimpleConn4();
   }
 
-  Response getMessages(Connection conn) {
-    return JDBC.withStatement(conn, stmt -> {
-      List<Long> messages = new ArrayList<>();
-      JDBC.withResultSet("select * from bdia.test1", stmt, rs -> {
-        messages.add(rs.getLong("id"));
-      });
-      return Response.ok(messages).build();
-    });
+  Response runSimpleConn5() {
+    final List<String> messages = new ArrayList<>();
+    JDBC.withPreparedStatement(
+        "select cast(id as text), email from bdia.test1 where email=?",
+        dataSource, stmt -> {
+          stmt.setString(1, "kgrzanek@san.edu.pl");
+          JDBC.forEachResultSetRow(stmt, rs -> {
+            messages.add(rs.getObject("id", String.class));
+            messages.add(rs.getObject("email", String.class));
+          });
+        });
+    return Response.ok(messages).build();
   }
 
   Response runSimpleConn4() {
-    return JDBC.withConnection(dataSource, this::getMessages);
+    final List<String> messages = new ArrayList<>();
+    JDBC.forEachResultSetRow(
+        "select cast(id as text), email from bdia.test1 where email='kgrzanek@san.edu.pl'",
+        dataSource, rs -> {
+          messages.add(rs.getObject("id", String.class));
+          messages.add(rs.getObject("email", String.class));
+        });
+    return Response.ok(messages).build();
   }
 
   Response runSimpleConn3() {
-    // LOG.log(Level.INFO, "We try to establish a Postgres connection...");
+    LOG.log(Level.INFO, "We try to establish a Postgres connection...");
     try (var conn = dataSource.getConnection()) {
-      // LOG.log(Level.INFO, "Connection established: " + conn);
+      LOG.log(Level.INFO, "Connection established: " + conn);
 
-      //
+      // Business logic goes here:
 
       return Response.ok("Hello from Quarkus REST").build();
     } catch (final SQLException e) {
@@ -72,7 +86,7 @@ class GreetingResource {
         .getConnection(POSTGRES_URI.formatted("bdia_owner", "54321"))) {
       LOG.log(Level.INFO, "Connection established: " + conn);
 
-      //
+      // Business logic goes here:
 
       return Response.ok("Hello from Quarkus REST").build();
     } catch (final SQLException e) {
@@ -89,7 +103,7 @@ class GreetingResource {
           .getConnection(POSTGRES_URI.formatted("bdia_owner", "54321"));
       LOG.log(Level.INFO, "Connection established: " + conn);
 
-      //
+      // Business logic goes here:
 
       return Response.ok("Hello from Quarkus REST").build();
     } catch (final SQLException e) {
