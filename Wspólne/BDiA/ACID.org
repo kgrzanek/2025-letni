@@ -1,0 +1,8 @@
+* Atomicity   (atomowość)
+* Consistency (spójność)
+* Isolation   (izolacja)
+* Durability  (trwałość)
+
+Non-Repeatable Reads
+
+* Transaction Isolation Level(s)

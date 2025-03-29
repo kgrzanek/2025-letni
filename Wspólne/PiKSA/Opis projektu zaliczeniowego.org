@@ -1,0 +1,7 @@
+* Technologia klasy enterprise
+* REST
+* Testy muszą być
+   - jednostkowe - MUST HAVE
+   - integracyjne - COULD HAVE
+
+* Tematyka dowolna

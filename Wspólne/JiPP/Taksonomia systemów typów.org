@@ -1,0 +1,13 @@
+* Systemy typów w językach programowania
+
+|       | Statyczne                        | Dynamiczne                                 |
+|-------+----------------------------------+--------------------------------------------|
+| Silne | Java, Haskell, F#, C#, Ocaml, TS | Python, Clojure, Ruby, Common Lisp, Scheme |
+| Słabe | C, C++                           | JS, Perl, PHP                              |
+
+Słaby system typów: pozwala na niejawne konwersje wiodące do błędów
+
+def foo(n):
+  return 2 * n + 3
+
+foo(3.14)
