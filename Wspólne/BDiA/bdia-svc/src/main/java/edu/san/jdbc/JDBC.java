@@ -16,6 +16,42 @@ public final class JDBC {
 
   static final Logger LOG = System.getLogger(JDBC.class.getName());
 
+  private static record TxImpl(
+      Connection connection,
+      int isolationLevel,
+      boolean isAutoCommit) implements Tx, AutoCloseable {
+
+    @Override
+    public void close() throws Exception {
+      connection.setTransactionIsolation(isolationLevel);
+      connection.setAutoCommit(isAutoCommit);
+    }
+
+    @Override
+    public Connection getConnection() {
+      return connection;
+    }
+  }
+
+  public static void withTx(
+      Connection conn,
+      int isolationLevel,
+      JDBConsumer<Tx> body) throws Exception {
+
+    try (var tx = new TxImpl(conn,
+        conn.getTransactionIsolation(),
+        conn.getAutoCommit())) {
+
+      conn.setTransactionIsolation(isolationLevel);
+      conn.setAutoCommit(false);
+
+      body.accept(tx);
+
+      conn.commit();
+    }
+
+  }
+
   public static void withConnection(
       DataSource dataSource,
       JDBConsumer<Connection> body) {
@@ -55,6 +91,26 @@ public final class JDBC {
       DataSource dataSource,
       JDBConsumer<PreparedStatement> body) {
     withConnection(dataSource, conn -> withPreparedStatement(sql, conn, body));
+  }
+
+  public static int execUpdate(String sql, Statement statement) {
+    try {
+      return statement.executeUpdate(sql);
+    } catch (final SQLException e) {
+      LOG.log(Level.ERROR, e);
+      return EX.raise(e);
+    }
+  }
+
+  public static int execUpdate(String sql, Connection conn) {
+    final var counter = new Object() {
+      int value;
+    };
+    withPreparedStatement(sql, conn, preparedStatement -> {
+      counter.value = execUpdate(sql, preparedStatement);
+    });
+
+    return counter.value;
   }
 
   public static void forEachQueryResult(

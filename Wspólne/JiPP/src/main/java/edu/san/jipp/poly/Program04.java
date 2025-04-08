@@ -7,7 +7,7 @@ public class Program04 {
     // inkluzyjny.
     for (int i = 0; i < 10; i++) {
       a.saySomething();
-      // Występuje tutaj tzw. późne wiązanie.
+      // Występuje tutaj tzw. późne wiązanie (ang. late binding).
       // * Wiązanie: proces określania wartości odpowiadającej danemu symbolowi
       // * Późne: Odbywa się dopiero na etapie działania programu (w runtimie)
       // * Gdyby było wczesne, znaczyłoby to, że ma miejsce w trakcie kompilacji.

@@ -7,10 +7,10 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class GreetingFactory implements GreetingResponse.Factory {
+public class GreetingResponseFactory implements GreetingResponse.Factory {
 
   @RegisterForReflection
-  public record GreetingResponseImpl(String greetingMessage)
+  public static record GreetingResponseImpl(String greetingMessage)
       implements GreetingResponse {
 
     public GreetingResponseImpl {
