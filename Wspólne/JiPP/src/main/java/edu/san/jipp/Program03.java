@@ -13,8 +13,8 @@ public class Program03 {
   }
 
   public static void main(String[] args) {
-    double d = 4.56;
-    int n = 7;
+    final var d = 4.56;
+    final var n = 7;
 
     System.out.println(foo(d));
     System.out.println(foo(n));

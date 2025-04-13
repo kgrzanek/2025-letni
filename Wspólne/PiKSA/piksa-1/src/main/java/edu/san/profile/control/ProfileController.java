@@ -18,19 +18,19 @@ public class ProfileController {
   }
 
   public SignUpResponse signUp(SignUpCommand signUpCommand) {
-    if (isEmailInUse(signUpCommand.email()))
+    if (isEmailInUse(signUpCommand.getEmail()))
       return signUpResponseFactory.emailInUse();
 
-    if (isPasswordWeak(signUpCommand.password()))
+    if (isPasswordWeak(signUpCommand.getPassword()))
       return signUpResponseFactory.passwordIsWeak();
 
     final var profileId = profileRepository.addProfile(
-        signUpCommand.email(),
-        signUpCommand.password(),
-        signUpCommand.firstName().orElse(null),
-        signUpCommand.lastName().orElse(null));
+        signUpCommand.getEmail(),
+        signUpCommand.getPassword(),
+        signUpCommand.getFirstName().orElse(null),
+        signUpCommand.getLastName().orElse(null));
 
-    return signUpResponseFactory.profileAdded(profileId);
+    return signUpResponseFactory.success(profileId);
   }
 
   private static boolean isPasswordWeak(String password) {

@@ -5,9 +5,9 @@ import java.util.UUID;
 
 import edu.san.profile.control.ProfileId;
 
-record ProfileIdImpl(UUID uuid) implements ProfileId {
+public record ProfileIdImpl(UUID uuid) implements ProfileId {
 
-  ProfileIdImpl {
+  public ProfileIdImpl {
     Objects.requireNonNull(uuid);
   }
 

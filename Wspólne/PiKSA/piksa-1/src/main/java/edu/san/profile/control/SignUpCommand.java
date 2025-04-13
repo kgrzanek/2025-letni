@@ -4,12 +4,12 @@ import java.util.Optional;
 
 public interface SignUpCommand {
 
-  String email();
+  String getEmail();
 
-  String password();
+  String getPassword();
 
-  Optional<String> firstName();
+  Optional<String> getFirstName();
 
-  Optional<String> lastName();
+  Optional<String> getLastName();
 
 }
