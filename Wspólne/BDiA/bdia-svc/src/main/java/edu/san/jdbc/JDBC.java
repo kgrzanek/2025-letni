@@ -22,7 +22,7 @@ public final class JDBC {
       boolean isAutoCommit) implements Tx, AutoCloseable {
 
     @Override
-    public void close() throws Exception {
+    public void close() throws SQLException {
       connection.setTransactionIsolation(isolationLevel);
       connection.setAutoCommit(isAutoCommit);
     }
@@ -33,10 +33,27 @@ public final class JDBC {
     }
   }
 
+  public static void withSerializationRestarts(IsSerializationFailure pred,
+      int times, Runnable body) {
+    if (times == 0) {
+      body.run();
+    } else {
+      try {
+        body.run();
+      } catch (final Exception e) {
+        if (IsSerializationFailure.test(pred, e)) {
+          withSerializationRestarts(pred, times - 1, body);
+        } else {
+          EX.raise(e);
+        }
+      }
+    }
+  }
+
   public static void withTx(
       Connection conn,
       int isolationLevel,
-      JDBConsumer<Tx> body) throws Exception {
+      JDBConsumer<Tx> body) throws SQLException {
 
     try (var tx = new TxImpl(conn,
         conn.getTransactionIsolation(),
@@ -50,6 +67,13 @@ public final class JDBC {
       conn.commit();
     }
 
+  }
+
+  public static void withTx(
+      DataSource dataSource,
+      int isolationLevel,
+      JDBConsumer<Tx> body) {
+    withConnection(dataSource, conn -> withTx(conn, isolationLevel, body));
   }
 
   public static void withConnection(
@@ -106,9 +130,9 @@ public final class JDBC {
     final var counter = new Object() {
       int value;
     };
-    withPreparedStatement(sql, conn, preparedStatement -> {
-      counter.value = execUpdate(sql, preparedStatement);
-    });
+    withPreparedStatement(sql, conn,
+        preparedStatement -> counter.value = execUpdate(sql,
+            preparedStatement));
 
     return counter.value;
   }
