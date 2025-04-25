@@ -5,6 +5,7 @@ import java.lang.System.Logger.Level;
 import java.util.Objects;
 
 import edu.san.greeting.control.GreetingController;
+import edu.san.greeting.control.GreetingQuery;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -25,6 +26,9 @@ public class GreetingResource {
   public GreetingResource(GreetingController greetingController) {
     this.greetingController = Objects.requireNonNull(greetingController);
   }
+
+  public record GreetingQueryRequest(String whoToGreet)
+      implements GreetingQuery {}
 
   @POST
   @Produces(MediaType.APPLICATION_JSON)

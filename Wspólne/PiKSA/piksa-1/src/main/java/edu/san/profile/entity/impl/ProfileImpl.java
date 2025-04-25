@@ -2,14 +2,14 @@ package edu.san.profile.entity.impl;
 
 import java.util.Objects;
 
-record ProfileImpl(
+public record ProfileImpl(
     ProfileIdImpl profileId,
     String email,
     String password,
-    String firstName,
-    String lastName) {
+    @SuppressWarnings("unused") String firstName,
+    @SuppressWarnings("unused") String lastName) {
 
-  ProfileImpl {
+  public ProfileImpl {
     Objects.requireNonNull(profileId);
     Objects.requireNonNull(email);
     Objects.requireNonNull(password);

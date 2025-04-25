@@ -16,6 +16,7 @@ public class SignUpResponseFactory implements SignUpResponse.Factory {
       implements SignUpResponse {
 
     public SuccessSignUpResponse {
+      Objects.requireNonNull(result);
       Objects.requireNonNull(profileId);
     }
   }
