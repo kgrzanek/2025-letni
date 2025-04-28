@@ -7,6 +7,9 @@ import java.util.Objects;
 import edu.san.greeting.control.GreetingController;
 import edu.san.greeting.control.GreetingQuery;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -27,13 +30,13 @@ public class GreetingResource {
     this.greetingController = Objects.requireNonNull(greetingController);
   }
 
-  public record GreetingQueryRequest(String whoToGreet)
+  public record GreetingQueryRequest(@NotNull @NotBlank String whoToGreet)
       implements GreetingQuery {}
 
   @POST
-  @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response handlePost(GreetingQueryRequest request) {
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response handleGreet(@Valid GreetingQueryRequest request) {
     LOG.log(Level.DEBUG, "Działa metoda GreetingResource::hello()");
     return Response.ok(greetingController.sayHello(request))
         .build();
