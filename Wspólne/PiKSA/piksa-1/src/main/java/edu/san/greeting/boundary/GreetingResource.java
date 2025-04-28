@@ -31,14 +31,14 @@ public class GreetingResource {
   }
 
   public record GreetingQueryRequest(@NotNull @NotBlank String whoToGreet)
-      implements GreetingQuery {}
+      implements GreetingQuery {
+  }
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public Response handleGreet(@Valid GreetingQueryRequest request) {
     LOG.log(Level.DEBUG, "Działa metoda GreetingResource::hello()");
-    return Response.ok(greetingController.sayHello(request))
-        .build();
+    return Response.ok(greetingController.sayHello(request)).build();
   }
 }
