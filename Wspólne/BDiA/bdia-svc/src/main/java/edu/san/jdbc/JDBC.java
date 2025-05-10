@@ -16,33 +16,30 @@ public final class JDBC {
 
   static final Logger LOG = System.getLogger(JDBC.class.getName());
 
-  private static record TxImpl(
-      Connection connection,
-      int isolationLevel,
-      boolean isAutoCommit) implements Tx, AutoCloseable {
-
-    @Override
-    public void close() throws SQLException {
-      connection.setTransactionIsolation(isolationLevel);
-      connection.setAutoCommit(isAutoCommit);
-    }
-
+  private static record TxImpl(Connection connection) implements Tx {
     @Override
     public Connection getConnection() {
       return connection;
     }
   }
 
-  public static void withSerializationRestarts(IsSerializationFailure pred,
-      int times, Runnable body) {
-    if (times == 0) {
+  public static void withSerializationRestarts(
+      IsSerializationFailure pred,
+      int allowedRestartsCount,
+      Runnable body) {
+
+    if (allowedRestartsCount < 0)
+      throw new IllegalArgumentException(
+          "Negative allowedRestartsCount = " + allowedRestartsCount);
+
+    if (allowedRestartsCount == 0) {
       body.run();
     } else {
       try {
         body.run();
       } catch (final Exception e) {
         if (IsSerializationFailure.test(pred, e)) {
-          withSerializationRestarts(pred, times - 1, body);
+          withSerializationRestarts(pred, allowedRestartsCount - 1, body);
         } else {
           EX.raise(e);
         }
@@ -52,26 +49,31 @@ public final class JDBC {
 
   public static void withTx(
       Connection conn,
-      int isolationLevel,
+      IsolationLevel isolationLevel,
       JDBConsumer<Tx> body) throws SQLException {
 
-    try (var tx = new TxImpl(conn,
-        conn.getTransactionIsolation(),
-        conn.getAutoCommit())) {
+    final var transactionIsolationOriginal = conn.getTransactionIsolation();
+    final var autoCommitOriginal = conn.getAutoCommit();
+    var wasCommitted = false;
 
-      conn.setTransactionIsolation(isolationLevel);
+    try {
+      conn.setTransactionIsolation(isolationLevel.value());
       conn.setAutoCommit(false);
 
-      body.accept(tx);
-
+      body.accept(new TxImpl(conn));
       conn.commit();
+      wasCommitted = true;
+    } finally {
+      if (wasCommitted) {
+        conn.setTransactionIsolation(transactionIsolationOriginal);
+        conn.setAutoCommit(autoCommitOriginal);
+      }
     }
-
   }
 
   public static void withTx(
       DataSource dataSource,
-      int isolationLevel,
+      IsolationLevel isolationLevel,
       JDBConsumer<Tx> body) {
     withConnection(dataSource, conn -> withTx(conn, isolationLevel, body));
   }
@@ -130,9 +132,8 @@ public final class JDBC {
     final var counter = new Object() {
       int value;
     };
-    withPreparedStatement(sql, conn,
-        preparedStatement -> counter.value = execUpdate(sql,
-            preparedStatement));
+    withStatement(conn,
+        statement -> counter.value = execUpdate(sql, statement));
 
     return counter.value;
   }
@@ -166,7 +167,7 @@ public final class JDBC {
     }
   }
 
-  public static void forResultSetRow(
+  public static void forEachResultSetRow(
       String sql,
       Connection conn,
       JDBConsumer<ResultSet> body) {
@@ -177,7 +178,7 @@ public final class JDBC {
       String sql,
       DataSource dataSource,
       JDBConsumer<ResultSet> body) {
-    withConnection(dataSource, conn -> forResultSetRow(sql, conn, body));
+    withConnection(dataSource, conn -> forEachResultSetRow(sql, conn, body));
   }
 
   private JDBC() {}

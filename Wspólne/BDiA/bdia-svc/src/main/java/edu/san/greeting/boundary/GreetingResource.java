@@ -2,15 +2,19 @@ package edu.san.greeting.boundary;
 
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
+import edu.san.jdbc.IsSerializationFailure;
+import edu.san.jdbc.IsolationLevel;
 import edu.san.jdbc.JDBC;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.GET;
@@ -29,6 +33,8 @@ class GreetingResource {
 
   static final String POSTGRES_URI = "jdbc:postgresql://localhost:5501/bdia?user=%s&password=%s&ssl=false";
 
+  static final Random rnd = new SecureRandom();
+
   private final DataSource dataSource;
 
   GreetingResource(DataSource dataSource) {
@@ -38,7 +44,29 @@ class GreetingResource {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   public Response hello() {
-    return runSimpleConn4();
+    return runSimpleConn6();
+  }
+
+  @SuppressWarnings("resource")
+  Response runSimpleConn6() {
+    final List<String> messages = new ArrayList<>();
+    JDBC.withSerializationRestarts(
+        IsSerializationFailure.inPostgres, 3,
+        () -> JDBC.withTx(dataSource, IsolationLevel.SERIALIZABLE, tx -> {
+          final var newEmail = rnd.nextBoolean() ? "kgrzanek@san.edu.pl"
+              : "kongra@gmail.com";
+          JDBC.execUpdate("update bdia.test1 set email = '%s' where id=1"
+              .formatted(newEmail), tx.getConnection());
+
+          JDBC.forEachResultSetRow(
+              "select cast(id as text), email from bdia.test1 where email='kgrzanek@san.edu.pl'",
+              tx.getConnection(), rs -> {
+                messages.add(rs.getObject("id", String.class));
+                messages.add(rs.getObject("email", String.class));
+              });
+        }));
+
+    return Response.ok(messages).build();
   }
 
   Response runSimpleConn5() {

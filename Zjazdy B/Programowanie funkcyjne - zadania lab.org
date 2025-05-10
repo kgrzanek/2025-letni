@@ -7,3 +7,5 @@
       (używamy tego samego schematu obliczeniowego, co przy pierwiastku kwadratowym)
    b. Przebieg procedury Herona uzależnić od Epsilon
    c. Przebieg procedury Herona uzależnić od N (ilości kroków)
+
+* Zadanie 3. https://projecteuler.net/problem=48
