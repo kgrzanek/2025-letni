@@ -1,5 +1,7 @@
 package edu.san.jipp.classes;
 
+import java.util.Objects;
+
 public class Point2D {
 
   public static final Point2D ORIGIN = new Point2D(0, 0);
@@ -15,32 +17,24 @@ public class Point2D {
 
   @Override
   public final int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    long temp;
-    temp = Double.doubleToLongBits(x);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(y);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
-    return result;
+    return Objects.hash(x, y);
   }
 
   @Override
   public final boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (!(obj instanceof Point2D))
+    if (!(obj instanceof final Point2D other))
       return false;
-    Point2D other = (Point2D) obj;
     return Double.doubleToLongBits(x) == Double.doubleToLongBits(other.x)
         && Double.doubleToLongBits(y) == Double.doubleToLongBits(other.y);
   }
 
-  public double getX() {
+  public double x() {
     return x;
   }
 
-  public double getY() {
+  public double y() {
     return y;
   }
 

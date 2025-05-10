@@ -23,11 +23,11 @@ class GreetingResourceTest {
 
     given()
         .contentType(ContentType.JSON)
-        .body("{\"whoToGreet\": \"ME\"}")
+        .body("{\"whoToGreet\": \"Konrad\"}")
         .when().post("/greeting")
         .then()
         .statusCode(200)
-        .body(is("{\"greetingMessage\":\"Hello ME\"}"));
+        .body(is("{\"greetingMessage\":\"Hello Konrad\"}"));
   }
 
 }

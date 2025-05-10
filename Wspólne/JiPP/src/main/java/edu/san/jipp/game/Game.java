@@ -4,8 +4,8 @@ public class Game {
 
   public static void main(String[] args) {
     // Faza 1
-    Knight<Integer> knight1 = new Knight<>();
-    Knight<String> knight2 = new Knight<>();
+    final var knight1 = new Knight<Integer>();
+    final var knight2 = new Knight<String>();
 
     knight2.handleTreasure("Gold");
     knight2.handleTreasure("Sword");
@@ -14,9 +14,9 @@ public class Game {
     knight2.handleTreasure("Medicine");
 
     // Faza 2
-    int total = knight1.sack.treasure1 + knight1.sack.treasure2;
+    final var total = knight1.sack.treasure1 + knight1.sack.treasure2;
 
-    String total2 = knight2.sack.treasure1 + knight2.sack.treasure2;
+    final var total2 = knight2.sack.treasure1 + knight2.sack.treasure2;
     System.out.println("Total = " + total);
 
     System.out.println("Total = " + total2);

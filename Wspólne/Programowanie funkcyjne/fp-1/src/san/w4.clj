@@ -26,6 +26,8 @@
     (+ a
        (sum-ints (inc a) b))))
 
+(sum-ints 0 10)
+
 (defn square [x] (* x x))
 
 (defn sum-squares
@@ -63,7 +65,9 @@
   (fn [i]
     (+ i n)))
 
-(defn sum-int'
+(step 4)
+
+(defn sum-ints'
   [a b]
   (sum identity (step 1) a b 0))
 
@@ -73,13 +77,14 @@
 
 (defn pi-sum'
   [a b]
-  (sum (fn [i] (/ 1 (* i (+ i 2))))
+  (sum (fn [a] (/ 1 (*' a (+' a 2))))
        (step 4)
        a
        b
        0))
 
-(sum-int' 1 10)
+(sum-ints' 1 10)
+(pi-sum' 1 100)
 
 ;; OPERATOR PUNKTU STAŁEGO
 (defn avg
@@ -87,6 +92,8 @@
   (/ (+' x y) 2))
 
 (def ε (rationalize 0.00000000001))
+
+(println ε)
 
 (defn FP-close-enough?
   [x y] (< (abs (- x y)) ε))
@@ -114,6 +121,8 @@
 (defn sqrt'
   [x]
   (FIXED-POINT (average-damp (fn [y] (/ x y))) 1))
+
+(double (sqrt' 2))
 
 ;; METODA NEWTONA
 (def dx (rationalize 0.0000001))

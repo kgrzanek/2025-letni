@@ -72,14 +72,18 @@
     1
     (*' n (silnia (dec n)))))
 
-;; (silnia 10000)
+#_(silnia 10000)
 
 (defn factorial [n value]
   (if (= n 0)
     value
     (recur (dec n) (*' value n))))
 
-(factorial 10000 1)
+#_(factorial 10000 1)
+
+;; (use 'criterium.core)
+;; (quick-bench (silnia 1000))
+;; (quick-bench (factorial 1000 1))
 
 ;; Ciąg Fibonacciego
 (defn fib [n]
@@ -88,11 +92,18 @@
     (+ (fib (- n 1)) (fib (- n 2)))))
 
 (map fib (range 20))
-;; (time (fib 40))
+(time (fib 20))
+(time (fib 40))
 
 (defn fib-gen [[a b]]
   [b (+' a b)])
 
 (fib-gen [2 3])
+(fib-gen [3 5])
 
-;; (time (last (take 1000 (map first (iterate fib-gen [0 1])))))
+;; (iterate f x) => (x (f x) (f (f x)) (f (f (f x))) ... )
+(take 10 (iterate inc 0))
+(take 10 (iterate fib-gen [0 1]))
+
+(take 10 (map first (iterate fib-gen [0 1])))
+(time (last (take 100000 (map first (iterate fib-gen [0 1])))))

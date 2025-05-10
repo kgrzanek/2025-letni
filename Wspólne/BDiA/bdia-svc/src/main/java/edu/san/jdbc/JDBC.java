@@ -10,41 +10,34 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
-import edu.san.ex.EX;
+import edu.san.ex.Ex;
 
 public final class JDBC {
 
   static final Logger LOG = System.getLogger(JDBC.class.getName());
 
-  private static record TxImpl(
-      Connection connection,
-      int isolationLevel,
-      boolean isAutoCommit) implements Tx, AutoCloseable {
+  public static void withSerializationRestarts(
+      IsSerializationFailure pred,
+      int allowedRestartsCount,
+      Runnable body) {
 
-    @Override
-    public void close() throws SQLException {
-      connection.setTransactionIsolation(isolationLevel);
-      connection.setAutoCommit(isAutoCommit);
-    }
+    if (allowedRestartsCount < 0)
+      throw new IllegalArgumentException(
+          "Negative allowedRestartsCount = " + allowedRestartsCount);
 
-    @Override
-    public Connection getConnection() {
-      return connection;
-    }
-  }
-
-  public static void withSerializationRestarts(IsSerializationFailure pred,
-      int times, Runnable body) {
-    if (times == 0) {
-      body.run();
-    } else {
+    while (true) {
+      if (allowedRestartsCount == 0) {
+        body.run();
+        return;
+      }
       try {
         body.run();
+        return;
       } catch (final Exception e) {
         if (IsSerializationFailure.test(pred, e)) {
-          withSerializationRestarts(pred, times - 1, body);
+          allowedRestartsCount--;
         } else {
-          EX.raise(e);
+          Ex.raise(e);
         }
       }
     }
@@ -52,26 +45,38 @@ public final class JDBC {
 
   public static void withTx(
       Connection conn,
-      int isolationLevel,
+      IsolationLevel isolationLevel,
       JDBConsumer<Tx> body) throws SQLException {
 
-    try (var tx = new TxImpl(conn,
-        conn.getTransactionIsolation(),
-        conn.getAutoCommit())) {
+    final var transactionIsolationOriginal = conn.getTransactionIsolation();
+    final var autoCommitOriginal = conn.getAutoCommit();
+    var isCommitted = false;
 
-      conn.setTransactionIsolation(isolationLevel);
+    try {
+      conn.setTransactionIsolation(isolationLevel.value());
       conn.setAutoCommit(false);
 
-      body.accept(tx);
+      record TxImpl(Connection connection) implements Tx {
+        @Override
+        public Connection getConnection() {
+          return connection;
+        }
+      }
 
+      body.accept(new TxImpl(conn));
       conn.commit();
+      isCommitted = true;
+    } finally {
+      if (isCommitted) {
+        conn.setTransactionIsolation(transactionIsolationOriginal);
+        conn.setAutoCommit(autoCommitOriginal);
+      }
     }
-
   }
 
   public static void withTx(
       DataSource dataSource,
-      int isolationLevel,
+      IsolationLevel isolationLevel,
       JDBConsumer<Tx> body) {
     withConnection(dataSource, conn -> withTx(conn, isolationLevel, body));
   }
@@ -83,7 +88,7 @@ public final class JDBC {
       body.accept(conn);
     } catch (final SQLException e) {
       LOG.log(Level.ERROR, e);
-      EX.raise(e);
+      Ex.raise(e);
     }
   }
 
@@ -94,7 +99,7 @@ public final class JDBC {
       body.accept(statement);
     } catch (final SQLException e) {
       LOG.log(Level.ERROR, e);
-      EX.raise(e);
+      Ex.raise(e);
     }
   }
 
@@ -106,7 +111,7 @@ public final class JDBC {
       body.accept(statement);
     } catch (final SQLException e) {
       LOG.log(Level.ERROR, e);
-      EX.raise(e);
+      Ex.raise(e);
     }
   }
 
@@ -122,7 +127,7 @@ public final class JDBC {
       return statement.executeUpdate(sql);
     } catch (final SQLException e) {
       LOG.log(Level.ERROR, e);
-      return EX.raise(e);
+      return Ex.raise(e);
     }
   }
 
@@ -130,9 +135,8 @@ public final class JDBC {
     final var counter = new Object() {
       int value;
     };
-    withPreparedStatement(sql, conn,
-        preparedStatement -> counter.value = execUpdate(sql,
-            preparedStatement));
+    withStatement(conn,
+        statement -> counter.value = execUpdate(sql, statement));
 
     return counter.value;
   }
@@ -145,6 +149,7 @@ public final class JDBC {
       forEachResultSetRow(rs, body);
     } catch (final SQLException e) {
       LOG.log(Level.ERROR, e);
+      Ex.raise(e);
     }
   }
 
@@ -166,7 +171,7 @@ public final class JDBC {
     }
   }
 
-  public static void forResultSetRow(
+  public static void forEachResultSetRow(
       String sql,
       Connection conn,
       JDBConsumer<ResultSet> body) {
@@ -177,7 +182,7 @@ public final class JDBC {
       String sql,
       DataSource dataSource,
       JDBConsumer<ResultSet> body) {
-    withConnection(dataSource, conn -> forResultSetRow(sql, conn, body));
+    withConnection(dataSource, conn -> forEachResultSetRow(sql, conn, body));
   }
 
   private JDBC() {}

@@ -7,3 +7,11 @@
       (używamy tego samego schematu obliczeniowego, co przy pierwiastku kwadratowym)
    b. Przebieg procedury Herona uzależnić od Epsilon
    c. Przebieg procedury Herona uzależnić od N (ilości kroków)
+
+* Zadanie 3. https://projecteuler.net/problem=48
+
+* Zadanie 4.
+   a. Wyznaczyć dokładny wzór (lub napisać program) opisujący (lub obliczający) ilość
+      kroków niezbędnych do obliczenia (fib n) (z rekurencją "drzewiastą")
+   b. Zaproponować procedurę rekurencyjną fib, która generuje proces iteracyjny
+      wykorzystując formę (recur ...) i policzyć fib(10000) z jej wykorzystaniem.

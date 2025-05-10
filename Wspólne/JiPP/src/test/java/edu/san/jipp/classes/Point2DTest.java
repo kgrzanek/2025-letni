@@ -10,17 +10,17 @@ class Point2DTest {
 
   @Test
   void testPoint2D() {
-    var p1 = new Point2D(3, 4);
-    assertEquals(3, p1.getX());
-    assertEquals(4, p1.getY());
+    final var p1 = new Point2D(3, 4);
+    assertEquals(3, p1.x());
+    assertEquals(4, p1.y());
 
-    var p2 = new Point2D(3, 4);
-    assertEquals(3, p2.getX());
-    assertEquals(4, p2.getY());
+    final var p2 = new Point2D(3, 4);
+    assertEquals(3, p2.x());
+    assertEquals(4, p2.y());
 
     // identity check
-    var areIdentical1 = p1 == p1;
-    var areIdentical2 = p1 == p2;
+    final var areIdentical1 = p1 == p1;
+    final var areIdentical2 = p1 == p2;
     assertTrue(areIdentical1);
     assertFalse(areIdentical2);
 
@@ -34,24 +34,24 @@ class Point2DTest {
 
   @Test
   void testPoint2DDoubleDouble() {
-    var p1 = new Point2D(1, 2);
-    assertEquals(1, p1.getX());
-    assertEquals(2, p1.getY());
+    final var p1 = new Point2D(1, 2);
+    assertEquals(1, p1.x());
+    assertEquals(2, p1.y());
   }
 
   @Test
   void testColoredPoint2D() {
-    var p1 = new ColoredPoint2D(Color.RED, 1, 2);
-    var p2 = new ColoredPoint2D(Color.RED, 1, 2);
-    var p3 = new ColoredPoint2D(Color.BLUE, 1, 2);
-    var p4 = new ColoredPoint2D(Color.RED, 4, 5);
-    var p5 = new ColoredPoint2D(Color.GREEN, 7, 8);
+    final var p1 = new ColoredPoint2D(Color.RED, 1, 2);
+    final var p2 = new ColoredPoint2D(Color.RED, 1, 2);
+    final var p3 = new ColoredPoint2D(Color.BLUE, 1, 2);
+    new ColoredPoint2D(Color.RED, 4, 5);
+    new ColoredPoint2D(Color.GREEN, 7, 8);
 
     assertTrue(p1.equals(p1));
     assertTrue(p1.equals(p2));
     assertTrue(p1.equals(p3));
 
-    var p6 = new Point2D(1, 2);
+    final var p6 = new Point2D(1, 2);
     assertTrue(p6.equals(p1));
     assertTrue(p1.equals(p6));
 

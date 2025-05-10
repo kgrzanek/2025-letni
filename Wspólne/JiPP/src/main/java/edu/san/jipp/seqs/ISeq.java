@@ -22,8 +22,8 @@ public interface ISeq<T> extends Iterable<T> {
 
   @Override
   default Iterator<T> iterator() {
-    final var state = new Ref<ISeq<T>>(ISeq.this);
-    return new Iterator<T>() {
+    final var state = new Ref<>(ISeq.this);
+    return new Iterator<>() {
       @Override
       public boolean hasNext() {
         return state.value != Nil.INSTANCE;
@@ -33,7 +33,7 @@ public interface ISeq<T> extends Iterable<T> {
       public T next() {
         if (!hasNext())
           throw new NoSuchElementException();
-        T value = ISeq.this.first();
+        final var value = ISeq.this.first();
         state.value = ISeq.this.rest();
         return value;
       }

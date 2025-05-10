@@ -1,0 +1,6 @@
+* Tematyka dowolna
+* Technologia JEE, .NET lub pokrewna
+* End-pointy REST
+* Bazy danych nie musi być
+* Muszą być testy endpointów
+* Musi być walidacja danych na wejściu endpointów

@@ -28,5 +28,4 @@ public final class LinkedSeq<T> implements ISeq<T> {
     return new LinkedSeq<>(obj, this);
   }
 
-
 }
