@@ -20,13 +20,13 @@ import jakarta.ws.rs.core.Response;
 @ApplicationScoped
 public class GreetingResource {
 
-  private static final Logger LOG = System
-      .getLogger(GreetingResource.class.getName());
-
   private final GreetingController greetingController;
 
-  public GreetingResource(GreetingController greetingController) {
+  private final Logger log;
+
+  public GreetingResource(GreetingController greetingController, Logger log) {
     this.greetingController = Objects.requireNonNull(greetingController);
+    this.log = log;
   }
 
   public record GreetingQueryRequest(
@@ -37,7 +37,7 @@ public class GreetingResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public Response handleGreet(@Valid GreetingQueryRequest request) {
-    LOG.log(Level.DEBUG, "Działa metoda GreetingResource::hello()");
+    log.log(Level.INFO, "Działa metoda GreetingResource::handleGreet(request)");
     return Response.ok(greetingController.sayHello(request)).build();
   }
 }
