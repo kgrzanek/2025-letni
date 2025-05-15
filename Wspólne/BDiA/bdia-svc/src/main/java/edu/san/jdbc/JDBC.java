@@ -56,10 +56,10 @@ public final class JDBC {
       conn.setTransactionIsolation(isolationLevel.value());
       conn.setAutoCommit(false);
 
-      record TxImpl(Connection connection) implements Tx {
+      record TxImpl(Connection conn) implements Tx {
         @Override
         public Connection getConnection() {
-          return connection;
+          return conn;
         }
       }
 

@@ -48,12 +48,12 @@ class GreetingResource {
   }
 
   Response runSimpleConn6() {
-    final List<String> messages = new ArrayList<>();
+    final var messages = new ArrayList<String>();
     JDBC.withSerializationRestarts(IsSerializationFailure.inPostgres, 3,
         () -> JDBC.withTx(dataSource, IsolationLevel.SERIALIZABLE,
             tx -> updateAndSelectMessages(tx, messages)));
 
-    log.log(Level.INFO, "It worked! " + messages);
+    // log.log(Level.INFO, "It worked! " + messages);
     return Response.ok(messages).build();
   }
 

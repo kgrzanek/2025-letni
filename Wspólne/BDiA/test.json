@@ -1,0 +1,272 @@
+[
+  {
+    "_id": "6824d73d404cdf2fbc99d4f7",
+    "index": 0,
+    "guid": "70f84f07-7a1b-4acf-8988-020f380ca3c4",
+    "isActive": false,
+    "balance": "$2,188.20",
+    "picture": "http://placehold.it/32x32",
+    "age": 33,
+    "eyeColor": "brown",
+    "name": "Underwood Hill",
+    "gender": "male",
+    "company": "KAGE",
+    "email": "underwoodhill@kage.com",
+    "phone": "+1 (966) 518-2963",
+    "address": "620 Raleigh Place, Fingerville, Illinois, 7289",
+    "about": "Et occaecat et proident eiusmod sit non tempor consequat. Ad eiusmod cillum eu irure proident ad reprehenderit velit minim ad. Non dolore sit consectetur non ea Lorem aliquip consectetur qui. Nulla et consectetur et cillum.\r\n",
+    "registered": "2015-11-15T10:14:23 -01:00",
+    "latitude": 17.953627,
+    "longitude": -54.63819,
+    "tags": [
+      "in",
+      "aliquip",
+      "enim",
+      "quis",
+      "minim",
+      "reprehenderit",
+      "irure"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Carroll Bullock"
+      },
+      {
+        "id": 1,
+        "name": "Lacy Michael"
+      },
+      {
+        "id": 2,
+        "name": "Marlene Burch"
+      }
+    ],
+    "greeting": "Hello, Underwood Hill! You have 2 unread messages.",
+    "favoriteFruit": "strawberry"
+  },
+  {
+    "_id": "6824d73d1881871965c4d540",
+    "index": 1,
+    "guid": "7a52d81d-7d46-4e4f-ac7d-db324a324d69",
+    "isActive": false,
+    "balance": "$1,744.66",
+    "picture": "http://placehold.it/32x32",
+    "age": 33,
+    "eyeColor": "green",
+    "name": "Melissa Vaughn",
+    "gender": "female",
+    "company": "PARCOE",
+    "email": "melissavaughn@parcoe.com",
+    "phone": "+1 (939) 552-2027",
+    "address": "386 Jackson Court, Westmoreland, Nevada, 1778",
+    "about": "Veniam do voluptate excepteur ex magna irure officia in ea. Reprehenderit et exercitation cupidatat officia nulla adipisicing anim laboris non fugiat eiusmod. Aliqua dolor minim aliquip magna id id quis proident.\r\n",
+    "registered": "2017-09-07T03:03:25 -02:00",
+    "latitude": -34.206431,
+    "longitude": 135.254488,
+    "tags": [
+      "duis",
+      "veniam",
+      "ipsum",
+      "nostrud",
+      "esse",
+      "ad",
+      "esse"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Alexis Donaldson"
+      },
+      {
+        "id": 1,
+        "name": "Annmarie Vance"
+      },
+      {
+        "id": 2,
+        "name": "Mccarthy Carr"
+      }
+    ],
+    "greeting": "Hello, Melissa Vaughn! You have 10 unread messages.",
+    "favoriteFruit": "strawberry"
+  },
+  {
+    "_id": "6824d73ddf762c3ad84e5587",
+    "index": 2,
+    "guid": "be790f27-05ad-4ee2-abb3-68f98d56c041",
+    "isActive": false,
+    "balance": "$1,869.60",
+    "picture": "http://placehold.it/32x32",
+    "age": 31,
+    "eyeColor": "blue",
+    "name": "Stephens Gregory",
+    "gender": "male",
+    "company": "ECOLIGHT",
+    "email": "stephensgregory@ecolight.com",
+    "phone": "+1 (842) 587-3309",
+    "address": "486 Brighton Court, Verdi, Maine, 9278",
+    "about": "Elit exercitation proident exercitation voluptate veniam laboris laborum id nisi. Excepteur ullamco qui reprehenderit amet officia voluptate ex excepteur. Aute magna sunt veniam elit sit et duis anim dolor ut. Cupidatat officia aute culpa eiusmod ipsum ut adipisicing cillum laboris id sunt duis anim.\r\n",
+    "registered": "2024-05-27T02:27:33 -02:00",
+    "latitude": -63.468001,
+    "longitude": 112.363615,
+    "tags": [
+      "in",
+      "dolor",
+      "excepteur",
+      "do",
+      "sunt",
+      "aliquip",
+      "minim"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Bradford Woods"
+      },
+      {
+        "id": 1,
+        "name": "Ernestine Macdonald"
+      },
+      {
+        "id": 2,
+        "name": "Potter Goodwin"
+      }
+    ],
+    "greeting": "Hello, Stephens Gregory! You have 6 unread messages.",
+    "favoriteFruit": "banana"
+  },
+  {
+    "_id": "6824d73d599c3c7b7e9e76d8",
+    "index": 3,
+    "guid": "603f7361-62e8-4333-8467-cc553eed78cf",
+    "isActive": true,
+    "balance": "$1,443.69",
+    "picture": "http://placehold.it/32x32",
+    "age": 30,
+    "eyeColor": "blue",
+    "name": "Kelley Barron",
+    "gender": "male",
+    "company": "NUTRALAB",
+    "email": "kelleybarron@nutralab.com",
+    "phone": "+1 (804) 505-2884",
+    "address": "178 Pershing Loop, Eureka, Alabama, 7313",
+    "about": "Esse ullamco velit eu do. Labore anim do labore fugiat enim reprehenderit anim officia dolor nostrud labore fugiat quis. In nostrud esse et nulla minim id.\r\n",
+    "registered": "2025-01-27T09:54:56 -01:00",
+    "latitude": -36.471933,
+    "longitude": 50.28211,
+    "tags": [
+      "id",
+      "pariatur",
+      "voluptate",
+      "Lorem",
+      "adipisicing",
+      "enim",
+      "do"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Audra Austin"
+      },
+      {
+        "id": 1,
+        "name": "Anita Franco"
+      },
+      {
+        "id": 2,
+        "name": "Genevieve Bonner"
+      }
+    ],
+    "greeting": "Hello, Kelley Barron! You have 3 unread messages.",
+    "favoriteFruit": "apple"
+  },
+  {
+    "_id": "6824d73d9c4d4742b8bc5de3",
+    "index": 4,
+    "guid": "0b36e891-909b-45ed-a341-293f0b2adf0a",
+    "isActive": false,
+    "balance": "$2,715.61",
+    "picture": "http://placehold.it/32x32",
+    "age": 24,
+    "eyeColor": "blue",
+    "name": "Schultz Dunn",
+    "gender": "male",
+    "company": "PORTICO",
+    "email": "schultzdunn@portico.com",
+    "phone": "+1 (808) 422-3748",
+    "address": "150 Woodruff Avenue, Boyd, Connecticut, 2088",
+    "about": "Dolore est tempor duis ad enim velit. Magna ullamco culpa excepteur elit veniam deserunt eu velit id esse ullamco officia in aliqua. Consectetur tempor Lorem proident occaecat magna in veniam. Proident laborum voluptate Lorem irure ipsum velit occaecat minim ad.\r\n",
+    "registered": "2016-02-26T06:06:10 -01:00",
+    "latitude": -35.248444,
+    "longitude": 50.739663,
+    "tags": [
+      "Lorem",
+      "enim",
+      "nulla",
+      "ex",
+      "ea",
+      "consectetur",
+      "ea"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Renee Best"
+      },
+      {
+        "id": 1,
+        "name": "Boyd Trevino"
+      },
+      {
+        "id": 2,
+        "name": "Noreen Huff"
+      }
+    ],
+    "greeting": "Hello, Schultz Dunn! You have 8 unread messages.",
+    "favoriteFruit": "banana"
+  },
+  {
+    "_id": "6824d73def25459aca815e19",
+    "index": 5,
+    "guid": "240f17a5-4267-4c68-95cd-18248c5a3cd5",
+    "isActive": false,
+    "balance": "$1,913.48",
+    "picture": "http://placehold.it/32x32",
+    "age": 28,
+    "eyeColor": "blue",
+    "name": "Patterson Schneider",
+    "gender": "male",
+    "company": "DUFLEX",
+    "email": "pattersonschneider@duflex.com",
+    "phone": "+1 (874) 499-3499",
+    "address": "868 Pacific Street, Allendale, Florida, 5687",
+    "about": "Duis ad dolore ea nisi et. Commodo Lorem est aliquip sit sint do laboris laboris adipisicing aute commodo incididunt sunt. Occaecat proident enim do commodo. Consectetur eiusmod dolore consectetur cillum est. Ad esse ullamco exercitation labore officia anim amet enim. In id proident consectetur sunt reprehenderit Lorem.\r\n",
+    "registered": "2024-06-20T02:57:09 -02:00",
+    "latitude": 57.978793,
+    "longitude": -134.158513,
+    "tags": [
+      "dolor",
+      "commodo",
+      "eu",
+      "magna",
+      "est",
+      "aute",
+      "ut"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Janie Petty"
+      },
+      {
+        "id": 1,
+        "name": "Waters Kramer"
+      },
+      {
+        "id": 2,
+        "name": "Simpson Edwards"
+      }
+    ],
+    "greeting": "Hello, Patterson Schneider! You have 2 unread messages.",
+    "favoriteFruit": "banana"
+  }
+]

@@ -14,7 +14,7 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = FirstNameValidator.class)
 public @interface ValidFirstName {
 
-  String message() default "Invalid first name";
+  String message() default "Invalid FirstName";
 
   Class<?>[] groups() default {};
 
