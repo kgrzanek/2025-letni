@@ -148,3 +148,37 @@
     1))
 
 (double (sqrt'' 2))
+
+(defn qubic-root
+  [start x]
+  (Newtons-method (fn [y] (- (* y y y) x)) ;; y → y^3 - x
+    start))
+
+;; FIXED POINT v2
+(defn FIXED-POINT-series
+  [f start]
+  (->> start
+       (iterate f)
+       (partition 2 1)
+       (take-while (fn [[x y]] (not (FP-close-enough? x y))))
+       (map second)))
+
+(defn sqrt-series
+  [x]
+  (FIXED-POINT-series (average-damp (fn [y] (/ x y))) 1))
+
+(defn sqrt'''
+  [x]
+  (last (sqrt-series x)))
+
+;; NEWTON'S METHOD v2
+(defn Newtons-method-series
+  [f y]
+  (FIXED-POINT-series (Newtons-transform f) y))
+
+(defn qubic-root-series
+  [start x]
+  (Newtons-method-series (fn [y] (- (* y y y) x)) ;; y → y^3 - x
+    start))
+
+;; (println (.length (str (last (take 8 (qubic-root-series 1 27))))))
