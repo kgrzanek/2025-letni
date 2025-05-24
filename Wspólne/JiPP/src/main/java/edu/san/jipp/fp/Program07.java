@@ -36,6 +36,7 @@ public class Program07 {
     int m = longComputations1(n);
     int k = longComputations2(n, m);
     int j = k + 3;
+    System.out.println(j);
   }
 
   static void computeLazily() {

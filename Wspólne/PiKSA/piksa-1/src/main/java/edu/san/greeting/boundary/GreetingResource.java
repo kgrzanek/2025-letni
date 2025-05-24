@@ -2,7 +2,6 @@ package edu.san.greeting.boundary;
 
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-import java.util.Objects;
 
 import edu.san.greeting.boundary.validation.ValidFirstName;
 import edu.san.greeting.control.GreetingController;
@@ -25,7 +24,7 @@ public class GreetingResource {
   private final Logger log;
 
   public GreetingResource(GreetingController greetingController, Logger log) {
-    this.greetingController = Objects.requireNonNull(greetingController);
+    this.greetingController = greetingController;
     this.log = log;
   }
 

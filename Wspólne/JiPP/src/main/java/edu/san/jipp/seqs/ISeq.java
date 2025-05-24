@@ -20,6 +20,8 @@ public interface ISeq<T> extends Iterable<T> {
 
   ISeq<T> cons(T obj);
 
+  boolean isNil();
+
   @Override
   default Iterator<T> iterator() {
     final var state = new Ref<>(ISeq.this);

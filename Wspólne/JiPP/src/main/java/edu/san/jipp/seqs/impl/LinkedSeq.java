@@ -28,4 +28,8 @@ public final class LinkedSeq<T> implements ISeq<T> {
     return new LinkedSeq<>(obj, this);
   }
 
+  @Override
+  public boolean isNil() {
+    return false;
+  }
 }

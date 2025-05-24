@@ -39,4 +39,9 @@ public final class LazySeq<T> implements ISeq<T> {
     return new LinkedSeq<>(obj, this);
   }
 
+  @Override
+  public boolean isNil() {
+    return false;
+  }
+
 }
