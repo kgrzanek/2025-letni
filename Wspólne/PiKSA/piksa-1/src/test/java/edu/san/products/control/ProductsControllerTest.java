@@ -1,5 +1,5 @@
 // © 2025 Konrad Grzanek <kongra@gmail.com>
-package edu.san.products;
+package edu.san.products.control;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,6 +10,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import edu.san.products.entity.ProductsRepository;
+import edu.san.products.entity.impl.MemProductsRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 
@@ -37,8 +39,8 @@ class ProductsControllerTest {
         .findExistingProductNames(List.of("Product1", "Product2", "Product3"));
 
     assertThat(names)
-      .contains("Product1")
-      .doesNotContain("Product2", "Product3");
+        .contains("Product1")
+        .doesNotContain("Product2", "Product3");
   }
 
 }

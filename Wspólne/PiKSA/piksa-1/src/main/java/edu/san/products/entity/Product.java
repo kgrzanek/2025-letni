@@ -1,5 +1,5 @@
 // © 2025 Konrad Grzanek <kongra@gmail.com>
-package edu.san.products;
+package edu.san.products.entity;
 
 public record Product(String name) {
 
