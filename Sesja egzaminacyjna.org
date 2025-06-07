@@ -1,0 +1,34 @@
+* Studia stacjonarne
+  18 czerwca 2025
+
+** Języki i paradygmaty programowania
+    K-23, 10.00-11.30
+
+** 4 semestr
+    Programowanie i konfiguracja serwerów aplikacyjnych (PiKSA)
+    Programowanie funkcyjne
+    K-23  12.00-14.00
+
+** 6 semestr
+    Systemy szkieletowe JEE
+    Bazy danych i aplikacje
+    K-23  14.00-16.00
+
+* Studia niestacjonarne
+  29 czerwca 2025 (9 zjazd niedziela)
+
+** Lab.
+    K-33 8.00 - 9.45
+
+** Języki i paradygmaty programowania
+    K-1/K-3, 10.00-11.30
+
+** 4 semestr
+    Programowanie i konfiguracja serwerów aplikacyjnych (PiKSA)
+    Programowanie funkcyjne
+    K-1/K-3  12.00-14.00
+
+** 6 semestr
+    Systemy szkieletowe JEE
+    Bazy danych i aplikacje
+    K-1/K-3  14.00-16.00

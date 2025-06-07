@@ -1,0 +1,8 @@
+- Dependency inversion i dependency injection w wybranej technologii
+- Co to jest event-driven architecture?
+- Co to jest event-sourcing?
+- Co to jest CQRS?
+- Co to są agregaty?
+- Co to jest architektura heksagonalna?
+- Dlaczego odddzielanie logiki biznesowej od bibliotek/frameworków jest korzystne?
+- Co to jest eventual consistency?
