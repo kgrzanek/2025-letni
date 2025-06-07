@@ -3,6 +3,9 @@ package edu.san.jipp.seqs;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import edu.san.jipp.fp.functions.Binary;
+import edu.san.jipp.fp.functions.Unary;
+import edu.san.jipp.fp.functions.UnaryPred;
 import edu.san.jipp.refs.Ref;
 import edu.san.jipp.seqs.impl.Nil;
 
@@ -40,6 +43,26 @@ public interface ISeq<T> extends Iterable<T> {
         return value;
       }
     };
+  }
+
+  default String asString() {
+    return Seqs.asString(this);
+  }
+
+  default ISeq<T> filter(UnaryPred<T> pred) {
+    return Seqs.filter(pred, this);
+  }
+
+  default ISeq<T> take(int n) {
+    return Seqs.take(n, this);
+  }
+
+  default <S> S reduce(Binary<S, T, S> f, S accum) {
+    return Seqs.reduce(f, accum, this);
+  }
+
+  default <S> ISeq<S> map(Unary<T, S> f) {
+    return Seqs.map(f, this);
   }
 
 }

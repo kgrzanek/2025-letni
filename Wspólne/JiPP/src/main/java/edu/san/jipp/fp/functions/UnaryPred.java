@@ -2,7 +2,7 @@
 package edu.san.jipp.fp.functions;
 
 @FunctionalInterface
-public interface Pred<T> {
+public interface UnaryPred<T> {
 
   boolean call(T arg);
 
